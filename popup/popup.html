@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anthra's AI Brain</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="logo-box">
+      <span class="logo-icon">🧠</span>
+      <div>
+        <h1 class="title">Anthra's AI Brain</h1>
+        <span class="version">v1.2.0 • by anthrakys</span>
+      </div>
+    </div>
+    <div class="badge status-live">ACTIVE</div>
+  </div>
+
+  <div class="description">
+    Real-time profitability calculator & item simulator for <strong>rngidle.fun</strong>.
+  </div>
+
+  <div class="card">
+    <div class="setting-row">
+      <div class="setting-info">
+        <span class="setting-name">In-Game Overlay</span>
+        <span class="setting-desc">Display the analysis panel next to rolls</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleOverlay" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-row">
+      <div class="setting-info">
+        <span class="setting-name">Show All Items</span>
+        <span class="setting-desc">Otherwise only items in your bag</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleShowAll" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-row">
+      <div class="setting-info">
+        <span class="setting-name">Default View</span>
+        <span class="setting-desc">Net Profit mode (subtracts shop price)</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleNetMode" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-row">
+      <div class="setting-info">
+        <span class="setting-name">Gamble Mode</span>
+        <span class="setting-desc">Show Top 3 highest jackpot potential plays</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggleGambleMode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="items-list">
+    <div class="items-title">Supported items (10):</div>
+    <div class="tags">
+      <span class="tag">🔪 DSS</span>
+      <span class="tag">🎡 RSS</span>
+      <span class="tag">🎰 SSS</span>
+      <span class="tag">😈 Horn</span>
+      <span class="tag">⚠️ Bitflip</span>
+      <span class="tag">⇄ Swap</span>
+      <span class="tag">🪨 Gravity</span>
+      <span class="tag">⚙️ Grinder</span>
+      <span class="tag">♾️ Edge</span>
+      <span class="tag">👾 Glitch</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://rngidle.fun/" target="_blank" class="btn-play">Open RNGidle.fun ➔</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
