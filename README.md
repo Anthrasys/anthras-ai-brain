@@ -20,6 +20,19 @@ A high-performance decision-making Chrome Extension (Manifest V3) for **rngidle.
 
 ---
 
+### 🦊 Mozilla Firefox
+
+1. Download and unzip **`Anthras-AI-Brain-v1.2.0.zip`** (or clone the repository).
+2. Open Firefox and navigate to:
+   ```text
+   about:debugging#/runtime/this-firefox
+3. Click Load Temporary Add-on... (Charger un module temporaire...).
+4. Select the manifest.json file inside the folder.
+5. Open https://rngidle.fun/
+(Requires Firefox 120+).
+
+---
+
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE) © 2026 anthrakys.
