@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Anthra's AI Brain",
+  "version": "1.2.0",
+  "author": "anthrakys",
+  "description": "Real-time decision overlay for RNGidle: calculates profitability, net profit, best/worst scenarios, and win rates for roll items.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://rngidle.fun/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://rngidle.fun/*"
+      ],
+      "js": [
+        "bridge.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://rngidle.fun/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "world": "MAIN",
+      "run_at": "document_idle"
+    }
+  ]
+}

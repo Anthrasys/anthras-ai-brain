@@ -1,0 +1,755 @@
+/* RNGidle Roll Profit Overlay - Clean Sober Minimalist UI */
+/* Author: anthrakys */
+
+#rngidle-profit-overlay {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  width: 410px;
+  max-width: calc(100vw - 32px);
+  background: rgba(12, 16, 23, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.7), 0 0 1px rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+  z-index: 99999;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  user-select: none;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+#rngidle-profit-overlay.hidden {
+  display: none !important;
+}
+
+/* Header */
+.rpo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: grab;
+}
+
+.rpo-header:active {
+  cursor: grabbing;
+}
+
+.rpo-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rpo-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+}
+
+.rpo-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+}
+
+.rpo-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Segmented Control */
+.rpo-segmented {
+  display: flex;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  padding: 1px;
+}
+
+.rpo-seg-btn {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.rpo-seg-btn:hover {
+  color: #cbd5e1;
+}
+
+.rpo-seg-btn.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+}
+
+.rpo-seg-btn.gamble-btn {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.rpo-seg-btn.gamble-btn:hover {
+  border-color: rgba(244, 114, 182, 0.4);
+  color: #f472b6;
+}
+
+.rpo-seg-btn.gamble-btn.active {
+  background: rgba(236, 72, 153, 0.22) !important;
+  color: #f472b6 !important;
+  border: 1px solid rgba(236, 72, 153, 0.45) !important;
+  box-shadow: 0 0 8px rgba(236, 72, 153, 0.2);
+}
+
+.rpo-icon-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.12s ease;
+}
+
+.rpo-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Body Container */
+.rpo-body {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: calc(85vh - 50px);
+  overflow-y: auto;
+}
+
+.rpo-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.rpo-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+/* Roll Status Strip */
+.rpo-roll-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+}
+
+.rpo-roll-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.rpo-caption {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.rpo-number {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: -0.2px;
+}
+
+.rpo-roll-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.rpo-score {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.rpo-tier {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 1.5px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  background: rgba(251, 191, 36, 0.12);
+  color: #fde047;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+/* Phase Notices */
+.rpo-notice {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  border-radius: 7px;
+  font-size: 11.5px;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  color: #bfdbfe;
+}
+
+.rpo-notice strong {
+  color: #93c5fd;
+}
+
+.rpo-notice.countdown {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.25);
+  color: #fde68a;
+}
+
+.rpo-notice.countdown strong {
+  color: #fef3c7;
+}
+
+/* Recommendation Banner */
+.rpo-recommendation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.rpo-recommendation.is-profitable {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.rpo-recommendation.is-neutral {
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.rpo-rec-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 3px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rpo-recommendation.is-profitable .rpo-rec-badge {
+  background: rgba(16, 185, 129, 0.25);
+  color: #34d399;
+}
+
+.rpo-recommendation.is-neutral .rpo-rec-badge {
+  background: rgba(148, 163, 184, 0.18);
+  color: #94a3b8;
+}
+
+.rpo-rec-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.rpo-rec-headline {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.rpo-rec-sub {
+  font-size: 11px;
+  color: #94a3b8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Gamble Mode Box (Top 3 Ceilings) */
+.rpo-gamble-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(236, 72, 153, 0.06);
+  border: 1px solid rgba(236, 72, 153, 0.25);
+  border-radius: 8px;
+  padding: 8px 10px;
+  animation: rpoFadeIn 0.15s ease;
+}
+
+@keyframes rpoFadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rpo-gamble-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rpo-gamble-title {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: #f472b6;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rpo-gamble-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fb7185;
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.rpo-gamble-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rpo-gamble-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.rpo-gamble-item:hover {
+  background: rgba(236, 72, 153, 0.12);
+  border-color: rgba(236, 72, 153, 0.35);
+  transform: translateX(2px);
+}
+
+.rpo-gamble-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rpo-gamble-rank {
+  font-size: 11px;
+  font-weight: 800;
+  color: #f59e0b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.rpo-gamble-emoji {
+  font-size: 14px;
+}
+
+.rpo-gamble-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.rpo-gamble-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.rpo-gamble-odds {
+  font-size: 10px;
+  color: #94a3b8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.rpo-gamble-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.rpo-gamble-jackpot {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.rpo-gamble-tier {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-transform: uppercase;
+}
+
+/* Horizontal Item Tabs */
+.rpo-tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 3px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) rgba(0, 0, 0, 0.25);
+  overscroll-behavior-x: contain;
+  scroll-behavior: auto;
+}
+
+.rpo-tabs::-webkit-scrollbar {
+  height: 3px;
+}
+
+.rpo-tabs::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.rpo-tabs::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+}
+
+.rpo-tabs::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 2px;
+}
+
+.rpo-tabs::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.rpo-tab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.rpo-tab:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #f1f5f9;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.rpo-tab.is-active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #38bdf8;
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.rpo-tab.is-profitable::after {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 5px #10b981;
+}
+
+.rpo-tab.not-owned {
+  opacity: 0.45;
+}
+
+.rpo-tab-qty {
+  font-size: 10px;
+  color: #64748b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Item Detail Panel */
+.rpo-item-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 9px;
+  padding: 10px 12px;
+}
+
+.rpo-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rpo-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rpo-panel-emoji {
+  font-size: 18px;
+}
+
+.rpo-panel-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.rpo-panel-cost {
+  font-size: 10.5px;
+  color: #64748b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.rpo-verdict-pill {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.rpo-verdict-pill.profitable {
+  background: rgba(16, 185, 129, 0.16);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+.rpo-verdict-pill.unprofitable {
+  background: rgba(244, 63, 94, 0.14);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: #fb7185;
+}
+
+/* Odds Bar */
+.rpo-odds-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rpo-bar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+}
+
+.rpo-bar-fill.win {
+  background: #10b981;
+}
+
+.rpo-bar-fill.neutral {
+  background: #475569;
+}
+
+.rpo-bar-fill.loss {
+  background: #f43f5e;
+}
+
+.rpo-bar-legend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.legend-win {
+  color: #34d399;
+}
+
+.legend-net {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.legend-loss {
+  color: #fb7185;
+}
+
+/* Scenarios Table */
+.rpo-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  margin-top: 3px;
+}
+
+.rpo-table th {
+  text-align: left;
+  padding: 5px 6px;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #64748b;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.rpo-table td {
+  padding: 5px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.rpo-table tr:last-child td {
+  border-bottom: none;
+}
+
+.rpo-table tr.row-highlight {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.scen-label {
+  color: #94a3b8;
+}
+
+.scen-label.bold {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.num-pos {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #34d399;
+  font-variant-numeric: tabular-nums;
+}
+
+.num-neg {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #fb7185;
+  font-variant-numeric: tabular-nums;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.tier-cell {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+/* Minimized Pill */
+#rngidle-profit-pill {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  background: rgba(12, 16, 23, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  color: #f1f5f9;
+  border-radius: 20px;
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  z-index: 99999;
+  font-size: 11px;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+#rngidle-profit-pill:hover {
+  transform: scale(1.02);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+#rngidle-profit-pill.hidden {
+  display: none !important;
+}
+
+/* In-Game Button Corner Badges */
+.split-item[data-profit] {
+  position: relative !important;
+}
+
+.split-item[data-profit]::after {
+  content: attr(data-profit);
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 10;
+  letter-spacing: 0.2px;
+  background: #10b981;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.split-item[data-rentable="false"]::after {
+  background: #475569;
+  color: #94a3b8;
+}
