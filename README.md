@@ -1,7 +1,7 @@
-# 🧠 Anthra's AI Brain (Chrome Extension Mod)
+# 🧠 Anthra's AI Brain (Chrome/Firefox Extension Mod)
 
 **Author:** anthrakys  
-**Version:** 1.2.0  
+**Version:** 1.2.2  
 **Target:** [rngidle.fun](https://rngidle.fun)
 
 A high-performance decision-making Chrome Extension (Manifest V3) for **rngidle.fun** that analyzes rolls in real time and computes **exact mathematical profitability**, **net profit (EP)**, and **win / loss probabilities** across all 10 shop items.
